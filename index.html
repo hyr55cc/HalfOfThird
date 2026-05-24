@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>نصف الثلث · Half of Third</title>
+<meta name="description" content="نصف الثلث — أعمال في تطوير المواقع والألعاب." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#14110b;
+    --bg-2:#1c1810;
+    --bg-3:#241e14;
+    --ink:#ece4d3;
+    --ink-soft:#a99c81;
+    --ink-dim:#6f6552;
+    --gold:#e3aa42;
+    --gold-soft:#f2cd83;
+    --line:rgba(236,228,211,.10);
+    --line-strong:rgba(236,228,211,.18);
+    --ar-display:'Reem Kufi',serif;
+    --ar-body:'Tajawal',sans-serif;
+    --latin:'Bricolage Grotesque',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--ar-body);-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden;line-height:1.7}
+  ::selection{background:var(--gold);color:#14110b}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+
+  /* ---------- ambient background ---------- */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(620px 420px at 82% -8%, rgba(227,170,66,.16), transparent 70%),
+      radial-gradient(540px 540px at 6% 110%, rgba(227,170,66,.07), transparent 70%);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/></svg>");
+  }
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 26px}
+
+  /* ---------- top bar ---------- */
+  header.bar{
+    position:sticky;top:0;z-index:20;
+    backdrop-filter:blur(10px);
+    background:linear-gradient(var(--bg),rgba(20,17,11,.72));
+    border-bottom:1px solid var(--line);
+  }
+  .bar-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--ar-display);font-weight:600;font-size:1.18rem}
+  .brand .mark{width:30px;height:30px;flex:none}
+  .brand .lt{font-family:var(--latin);font-size:.62rem;letter-spacing:.32em;color:var(--ink-soft);text-transform:uppercase}
+  nav.menu{display:flex;gap:30px;font-size:.92rem;color:var(--ink-soft)}
+  nav.menu a{transition:color .2s}
+  nav.menu a:hover{color:var(--gold)}
+  @media(max-width:620px){nav.menu{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:86px 0 70px;text-align:center}
+  .hero .bigmark{width:96px;height:96px;margin:0 auto 30px;animation:rise .9s ease both}
+  .eyebrow{
+    font-family:var(--latin);font-size:.72rem;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:20px;animation:rise .9s .05s ease both
+  }
+  .hero h1{
+    font-family:var(--ar-display);font-weight:700;line-height:1.05;
+    font-size:clamp(3.4rem,11vw,6.6rem);letter-spacing:-.01em;
+    animation:rise .9s .1s ease both
+  }
+  .hero .latin-name{
+    font-family:var(--latin);font-weight:800;font-size:clamp(.95rem,3.4vw,1.35rem);
+    letter-spacing:.5em;text-transform:uppercase;color:var(--ink-soft);
+    margin-top:14px;padding-inline-start:.5em;
+    animation:rise .9s .16s ease both
+  }
+  .hero p.tag{
+    max-width:430px;margin:26px auto 0;color:var(--ink-soft);font-size:1.04rem;
+    animation:rise .9s .22s ease both
+  }
+  .hero .cta{
+    display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px;
+    animation:rise .9s .28s ease both
+  }
+
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    font-family:var(--ar-body);font-weight:500;font-size:.96rem;
+    padding:13px 26px;border-radius:999px;transition:transform .2s,background .2s,border-color .2s,color .2s;
+  }
+  .btn svg{width:16px;height:16px}
+  .btn-primary{background:var(--gold);color:#14110b;font-weight:700}
+  .btn-primary:hover{transform:translateY(-2px);background:var(--gold-soft)}
+  .btn-ghost{border:1px solid var(--line-strong);color:var(--ink)}
+  .btn-ghost:hover{transform:translateY(-2px);border-color:var(--gold);color:var(--gold)}
+
+  /* ---------- section heading ---------- */
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin:14px 0 38px}
+  .sec-head h2{font-family:var(--ar-display);font-weight:600;font-size:clamp(1.7rem,5vw,2.5rem)}
+  .sec-head .count{
+    font-family:var(--latin);font-size:.78rem;letter-spacing:.2em;color:var(--gold);
+    border:1px solid var(--line-strong);border-radius:999px;padding:5px 12px
+  }
+  .sec-head .rule{flex:1;height:1px;background:var(--line)}
+
+  .works{display:flex;flex-direction:column;gap:42px;padding-bottom:30px}
+
+  /* ---------- work card ---------- */
+  .work{
+    background:var(--bg-2);border:1px solid var(--line);border-radius:20px;overflow:hidden;
+    opacity:0;transform:translateY(26px);
+    animation:rise .8s ease forwards;animation-delay:calc(.08s * var(--i));
+    transition:border-color .25s,transform .25s,box-shadow .25s;
+  }
+  .work:hover{
+    border-color:var(--line-strong);transform:translateY(-4px);
+    box-shadow:0 24px 50px -28px rgba(0,0,0,.8);
+  }
+
+  /* the wide banner area — REPLACE the .ph block with <img class="banner"> */
+  .work-banner{
+    position:relative;aspect-ratio:1000/300;overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .work-banner .banner{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+  .work:hover .work-banner .banner{transform:scale(1.04)}
+
+  /* placeholder shown until the real banner image is added */
+  .ph{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:8px;
+    background:
+      linear-gradient(135deg,hsl(var(--hue) 42% 16%),hsl(calc(var(--hue) + 26) 38% 9%));
+  }
+  .ph::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(236,228,211,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(236,228,211,.05) 1px,transparent 1px);
+    background-size:36px 36px;
+  }
+  .ph .ph-name{
+    position:relative;font-family:var(--ar-display);font-weight:700;
+    font-size:clamp(1.8rem,6vw,3rem);color:var(--ink)
+  }
+  .ph .ph-hint{
+    position:relative;font-family:var(--latin);font-size:.66rem;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--ink-soft);
+    border:1px dashed var(--line-strong);border-radius:999px;padding:5px 14px
+  }
+
+  .work-body{padding:24px 26px 26px}
+  .work-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .work-top h3{font-family:var(--ar-display);font-weight:600;font-size:1.5rem}
+  .chip{
+    font-family:var(--ar-body);font-size:.74rem;font-weight:500;
+    padding:4px 11px;border-radius:999px;border:1px solid var(--line-strong);color:var(--ink-soft)
+  }
+  .chip.site{color:var(--gold-soft);border-color:rgba(227,170,66,.4)}
+  .chip.game{color:#9ad0c0;border-color:rgba(154,208,192,.4)}
+  .work-repo{
+    margin-inline-start:auto;font-family:var(--latin);font-size:.74rem;
+    letter-spacing:.12em;color:var(--ink-dim)
+  }
+  .work-desc{color:var(--ink-soft);margin:12px 0 20px;font-size:1rem;max-width:62ch}
+  .work-actions{display:flex;gap:11px;flex-wrap:wrap}
+  .work-actions .btn{padding:11px 20px;font-size:.9rem}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);margin-top:60px;padding:48px 0 56px}
+  .foot-in{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+  .foot-in .mark{width:42px;height:42px}
+  .foot-name{font-family:var(--ar-display);font-weight:600;font-size:1.3rem}
+  .foot-links{display:flex;gap:22px;font-size:.92rem;color:var(--ink-soft)}
+  .foot-links a{display:flex;align-items:center;gap:7px;transition:color .2s}
+  .foot-links a:hover{color:var(--gold)}
+  .foot-links svg{width:16px;height:16px}
+  .foot-domain{font-family:var(--latin);font-size:.74rem;letter-spacing:.26em;color:var(--ink-dim);text-transform:uppercase}
+
+  @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="brand" href="#top">
+      <svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <polygon points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" stroke="#e3aa42" stroke-width="3"/>
+        <path d="M50,50 L50,10 L84.6,30 Z" fill="#e3aa42"/>
+        <g stroke="#e3aa42" stroke-width="1" opacity=".35">
+          <line x1="50" y1="50" x2="84.6" y2="70"/>
+          <line x1="50" y1="50" x2="50" y2="90"/>
+          <line x1="50" y1="50" x2="15.4" y2="70"/>
+          <line x1="50" y1="50" x2="15.4" y2="30"/>
+        </g>
+      </svg>
+      <span>نصف الثلث<br><span class="lt">Half of Third</span></span>
+    </a>
+    <nav class="menu">
+      <a href="#works">الأعمال</a>
+      <a href="#about">من نحن</a>
+      <a href="#contact">تواصل</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero wrap" id="top">
+  <svg class="bigmark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+    <polygon points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" stroke="#e3aa42" stroke-width="2.4"/>
+    <path d="M50,50 L50,10 L84.6,30 Z" fill="#e3aa42"/>
+    <g stroke="#e3aa42" stroke-width="1" opacity=".35">
+      <line x1="50" y1="50" x2="84.6" y2="70"/>
+      <line x1="50" y1="50" x2="50" y2="90"/>
+      <line x1="50" y1="50" x2="15.4" y2="70"/>
+      <line x1="50" y1="50" x2="15.4" y2="30"/>
+    </g>
+  </svg>
+  <div class="eyebrow">Studio · تطوير وتصميم</div>
+  <h1>نصف الثلث</h1>
+  <div class="latin-name">Half of Third</div>
+  <p class="tag">نصنع مواقع وألعاب على الويب — أفكار بسيطة، تنفيذ نظيف، وتجربة استخدام تهتمّ بالتفاصيل.</p>
+  <div class="cta">
+    <a class="btn btn-primary" href="#works">شاهد الأعمال</a>
+    <a class="btn btn-ghost" href="https://github.com/hyr55cc" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 8.2 23.9c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+      GitHub
+    </a>
+  </div>
+</section>
+
+<!-- ============ WORKS ============ -->
+<section class="wrap" id="works">
+  <div class="sec-head">
+    <h2>الأعمال</h2>
+    <span class="count">06 PROJECTS</span>
+    <span class="rule"></span>
+  </div>
+
+  <div class="works">
+
+    <!-- ===== 1. منى ===== -->
+    <article class="work" style="--i:1">
+      <div class="work-banner">
+        <svg class="banner" viewBox="0 0 1200 360" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="بنر منى">
+          <defs>
+            <linearGradient id="b1Bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#231910"/><stop offset="1" stop-color="#130e08"/></linearGradient>
+            <radialGradient id="b1Glow" cx="0.27" cy="0.54" r="0.62"><stop offset="0" stop-color="#e3aa42" stop-opacity="0.20"/><stop offset="1" stop-color="#e3aa42" stop-opacity="0"/></radialGradient>
+            <pattern id="b1Dots" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.3" fill="#e3aa42"/></pattern>
+          </defs>
+          <rect width="1200" height="360" fill="url(#b1Bg)"/>
+          <rect width="1200" height="360" fill="url(#b1Dots)" opacity="0.06"/>
+          <rect width="1200" height="360" fill="url(#b1Glow)"/>
+          <rect x="14" y="14" width="1172" height="332" rx="14" fill="none" stroke="#e3aa42" stroke-opacity="0.16"/>
+          <g transform="translate(46,38)">
+            <polygon points="18,2 31,9.5 31,24.5 18,32 5,24.5 5,9.5" fill="none" stroke="#e3aa42" stroke-width="2"/>
+            <path d="M18,17 L18,2 L31,9.5 Z" fill="#e3aa42"/>
+            <text x="42" y="13" font-family="'Bricolage Grotesque',sans-serif" font-size="9" letter-spacing="2.4" fill="#6f6552">HALF OF THIRD</text>
+            <text x="42" y="27" font-family="'Reem Kufi',serif" font-size="12" fill="#a99c81">نصف الثلث</text>
+          </g>
+          <line x1="500" y1="96" x2="500" y2="264" stroke="#e3aa42" stroke-opacity="0.14"/>
+          <text x="1142" y="160" text-anchor="end" font-family="'Reem Kufi',serif" font-weight="700" font-size="86" fill="#f1e8d5">منى</text>
+          <rect x="1084" y="184" width="58" height="4" rx="2" fill="#e3aa42"/>
+          <text x="1142" y="234" text-anchor="end" font-family="'Tajawal',sans-serif" font-size="25" fill="#bcae90">خريطة إرشادية للحجّاج</text>
+          <text x="1142" y="296" text-anchor="end" font-family="'Bricolage Grotesque',sans-serif" font-size="15" letter-spacing="3" fill="#6f6552">MONA</text>
+          <g stroke-linecap="round" stroke-linejoin="round">
+            <line x1="80" y1="302" x2="470" y2="302" stroke="#e3aa42" stroke-width="2" opacity="0.22"/>
+            <path d="M105,300 C185,258 220,312 300,270 S400,182 452,224" fill="none" stroke="#e3aa42" stroke-width="3" stroke-dasharray="1.5 11" opacity="0.55"/>
+            <circle cx="105" cy="300" r="5" fill="#f2cd83"/>
+            <circle cx="452" cy="224" r="5" fill="#f2cd83"/>
+            <path d="M104,302 L150,222 L196,302 Z" fill="#e3aa42" fill-opacity="0.08" stroke="#f2cd83" stroke-width="2.8"/>
+            <line x1="150" y1="222" x2="150" y2="302" stroke="#f2cd83" stroke-width="2.8"/>
+            <path d="M214,302 L256,232 L298,302 Z" fill="#e3aa42" fill-opacity="0.08" stroke="#e3aa42" stroke-width="2.8"/>
+            <path d="M300,302 L334,248 L368,302 Z" fill="#e3aa42" fill-opacity="0.05" stroke="#e3aa42" stroke-width="2.4" opacity="0.55"/>
+            <circle cx="392" cy="150" r="52" fill="none" stroke="#e3aa42" stroke-width="2" stroke-dasharray="2 9" opacity="0.4"/>
+            <ellipse cx="392" cy="214" rx="20" ry="5" fill="#000" opacity="0.35"/>
+            <path d="M392,104 C414,104 431,121 431,143 C431,176 392,212 392,212 C392,212 353,176 353,143 C353,121 370,104 392,104 Z" fill="#e3aa42"/>
+            <circle cx="392" cy="142" r="13" fill="#1a130b"/>
+          </g>
+        </svg>
+      </div>
+      <div class="work-body">
+        <div class="work-top">
+          <h3>منى</h3>
+          <span class="chip site">موقع</span>
+          <span class="work-repo">mona</span>
+        </div>
+        <p class="work-desc">خريطة إرشادية تساعد الحجّاج على التنقّل في مشاعر الحج بطريقة مبسّطة وواضحة.</p>
+        <div class="work-actions">
+          <a class="btn btn-ghost" href="https://github.com/hyr55cc/mona" target="_blank" rel="noopener">الكود على GitHub</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 2. بسمة ===== -->
+    <article class="work" style="--i:2">
+      <div class="work-banner">
+        <!-- استبدل هذا البلوك بـ: <img class="banner" src="banners/basmah.jpg" alt="بنر بسمة"> -->
+        <div class="ph" style="--hue:150">
+          <span class="ph-name">بسمة</span>
+          <span class="ph-hint">ضع بنر المشروع هنا</span>
+        </div>
+      </div>
+      <div class="work-body">
+        <div class="work-top">
+          <h3>بسمة</h3>
+          <span class="chip site">موقع</span>
+          <span class="work-repo">BASMAH</span>
+        </div>
+        <p class="work-desc">أذكار الصباح والمساء بواجهة هادئة وسهلة، تعينك على المداومة على وردك اليومي.</p>
+        <div class="work-actions">
+          <a class="btn btn-primary" href="https://hyr55cc.github.io/BASMAH/" target="_blank" rel="noopener">معاينة مباشرة</a>
+          <a class="btn btn-ghost" href="https://github.com/hyr55cc/BASMAH" target="_blank" rel="noopener">الكود على GitHub</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 3. البدر ===== -->
+    <article class="work" style="--i:3">
+      <div class="work-banner">
+        <!-- استبدل هذا البلوك بـ: <img class="banner" src="banners/albader.jpg" alt="بنر البدر"> -->
+        <div class="ph" style="--hue:212">
+          <span class="ph-name">البدر</span>
+          <span class="ph-hint">ضع بنر المشروع هنا</span>
+        </div>
+      </div>
+      <div class="work-body">
+        <div class="work-top">
+          <h3>البدر</h3>
+          <span class="chip site">موقع</span>
+          <span class="work-repo">albader</span>
+        </div>
+        <p class="work-desc">— اكتب لي وصف هذا المشروع وأضيفه هنا، لأنه ما فيه وصف على GitHub —</p>
+        <div class="work-actions">
+          <a class="btn btn-primary" href="https://hyr55cc.github.io/albader/" target="_blank" rel="noopener">معاينة مباشرة</a>
+          <a class="btn btn-ghost" href="https://github.com/hyr55cc/albader" target="_blank" rel="noopener">الكود على GitHub</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 4. بيق مارجن ===== -->
+    <article class="work" style="--i:4">
+      <div class="work-banner">
+        <!-- استبدل هذا البلوك بـ: <img class="banner" src="banners/bigmargin.jpg" alt="بنر بيق مارجن"> -->
+        <div class="ph" style="--hue:42">
+          <span class="ph-name">بيق مارجن</span>
+          <span class="ph-hint">ضع بنر المشروع هنا</span>
+        </div>
+      </div>
+      <div class="work-body">
+        <div class="work-top">
+          <h3>بيق مارجن</h3>
+          <span class="chip site">موقع</span>
+          <span class="work-repo">BIGMARGIN</span>
+        </div>
+        <p class="work-desc">منصّة لمتابعة بيع وشراء الأسهم، تعرض البيانات بشكل واضح يسهّل اتخاذ القرار.</p>
+        <div class="work-actions">
+          <a class="btn btn-primary" href="https://hyr55cc.github.io/BIGMARGIN/" target="_blank" rel="noopener">معاينة مباشرة</a>
+          <a class="btn btn-ghost" href="https://github.com/hyr55cc/BIGMARGIN" target="_blank" rel="noopener">الكود على GitHub</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 5. مزن ===== -->
+    <article class="work" style="--i:5">
+      <div class="work-banner">
+        <!-- استبدل هذا البلوك بـ: <img class="banner" src="banners/mozn.jpg" alt="بنر مزن"> -->
+        <div class="ph" style="--hue:268">
+          <span class="ph-name">مزن</span>
+          <span class="ph-hint">ضع بنر المشروع هنا</span>
+        </div>
+      </div>
+      <div class="work-body">
+        <div class="work-top">
+          <h3>مزن</h3>
+          <span class="chip site">موقع</span>
+          <span class="work-repo">MOZN</span>
+        </div>
+        <p class="work-desc">— اكتب لي وصف "مزن" وأضيفه هنا. عندك مستودعين باسم mozn، قل لي أيّهما المعتمد —</p>
+        <div class="work-actions">
+          <a class="btn btn-ghost" href="https://github.com/hyr55cc/MOZN" target="_blank" rel="noopener">الكود على GitHub</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 6. باحث حراج ===== -->
+    <article class="work" style="--i:6">
+      <div class="work-banner">
+        <!-- استبدل هذا البلوك بـ: <img class="banner" src="banners/haraj.jpg" alt="بنر باحث حراج"> -->
+        <div class="ph" style="--hue:8">
+          <span class="ph-name">باحث حراج</span>
+          <span class="ph-hint">ضع بنر المشروع هنا</span>
+        </div>
+      </div>
+      <div class="work-body">
+        <div class="work-top">
+          <h3>باحث حراج</h3>
+          <span class="chip site">أداة</span>
+          <span class="work-repo">harajsaercher</span>
+        </div>
+        <p class="work-desc">أداة بحث تسهّل تصفّح إعلانات حراج والوصول للنتائج المطلوبة بسرعة.</p>
+        <div class="work-actions">
+          <a class="btn btn-ghost" href="https://github.com/hyr55cc/harajsaercher" target="_blank" rel="noopener">الكود على GitHub</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="wrap" id="about" style="padding-top:60px">
+  <div class="sec-head">
+    <h2>من نحن</h2>
+    <span class="rule"></span>
+  </div>
+  <p style="max-width:64ch;color:var(--ink-soft);font-size:1.06rem">
+    «نصف الثلث» مساحة لعرض ما نطوّره من مواقع وألعاب على الويب. نؤمن أن البساطة في التصميم
+    والوضوح في التجربة أهمّ من الزخرفة، ونشتغل على كل مشروع حتى يطلع نظيفًا وسريعًا وسهل الاستخدام.
+  </p>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact">
+  <div class="wrap foot-in">
+    <svg class="mark" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+      <polygon points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" stroke="#e3aa42" stroke-width="3"/>
+      <path d="M50,50 L50,10 L84.6,30 Z" fill="#e3aa42"/>
+    </svg>
+    <div class="foot-name">نصف الثلث</div>
+    <div class="foot-links">
+      <a href="https://github.com/hyr55cc" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A12 12 0 0 0 8.2 23.9c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+        github.com/hyr55cc
+      </a>
+    </div>
+    <div class="foot-domain">halfofthird.com</div>
+  </div>
+</footer>
+
+</body>
+</html>
